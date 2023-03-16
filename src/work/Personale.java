@@ -1,6 +1,6 @@
 package work;
 
-public class Personale {
+public class Personale  {
  Dipendente[] persone; 
  
  

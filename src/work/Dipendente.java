@@ -1,10 +1,8 @@
 package work;
 
-public class Dipendente {
+public class Dipendente extends Persona {
 
 	static final private double stipendioBase = 800;
-
-
 
 	enum Dipartimento {
 		PRODUZIONE, AMMINISTRAZIONE, VENDITE,
@@ -16,7 +14,8 @@ public class Dipendente {
 	private Dipartimento dipartimento;
 	private double stipendio;
 
-	public Dipendente(String id, Dipartimento dipartimento) {
+	public Dipendente(String nome, String c, String id, Dipartimento dipartimento) {
+		super(nome, c);
 		this.id = id;
 		this.dipartimento = dipartimento;
 		this.importoOrarioStraordinario = 30;
@@ -25,19 +24,24 @@ public class Dipendente {
 
 	}
 
-	public Dipendente(String id, Dipartimento dipartimento, Double importo, Livello livello) {
-		this(id, dipartimento);
+	public Dipendente(String nome, String c, String id, Dipartimento dipartimento, Double importo, Livello livello) {
+		this(nome, c, id, dipartimento);
 		this.importoOrarioStraordinario = importo;
 		this.livello = livello;
 		this.stipendio = aggiornaStipendio();
 	}
 
 	public void stampaDatiDipendente() {
-		System.out.println(" \t--Dipendente--\t \nMarticola: " + this.id);
+		System.out.println(" \t--Dipendente--\t\n" + this.nome + " " + this.cognome + "\nMarticola: " + this.id);
 		System.out.println("Livello: " + this.livello);
 		System.out.println("Dipartimento: " + this.dipartimento);
 		System.out.println("Salario: " + this.stipendio);
 		System.out.println("Straordinario: " + this.importoOrarioStraordinario + "\n\n");
+	}
+
+	public String toString() {
+		return "Dipendente: " + this.nome + this.cognome + "\n" + "Martricola: " + this.id + "\nDipartimento: "
+				+ this.dipartimento + "\nLivello: " + this.livello+ "\n\n";
 	}
 
 	public void promuovi() {
@@ -45,30 +49,31 @@ public class Dipendente {
 		case OPERAIO:
 			this.livello = Livello.IMPIEGATO;
 			this.stipendio = aggiornaStipendio();
-			System.out.println(this.id +"PROMOSSO A " + this.livello +"\n");
+			System.out.println(this.id + "PROMOSSO A " + this.livello + "\n");
 			break;
 		case IMPIEGATO:
 			this.livello = Livello.QUADRO;
 			this.stipendio = aggiornaStipendio();
-			System.out.println(this.id +"PROMOSSO A " + this.livello +"\n");
+			System.out.println(this.id + "PROMOSSO A " + this.livello + "\n");
 			break;
 		case QUADRO:
 			this.livello = Livello.DIRIGENTE;
 			this.stipendio = aggiornaStipendio();
-			System.out.println(this.id +"PROMOSSO A " + this.livello +"\n");
+			System.out.println(this.id + "PROMOSSO A " + this.livello + "\n");
 			break;
 		case DIRIGENTE:
-			System.out.println("ERRORE, il dipendente ha già il livello massimo \n livello: " + this.livello +"\n");
+			System.out.println("ERRORE, il dipendente ha già il livello massimo \n livello: " + this.livello + "\n");
 			break;
 		default:
 			System.out.println("ERRORE, non è stato possibile definire il caso \n");
 			break;
 		}
 	}
-	
-	public double getStipendio () {
+
+	public double getStipendio() {
 		return this.stipendio;
 	}
+
 	public double getStraordinari() {
 		return this.importoOrarioStraordinario;
 	}
@@ -76,9 +81,10 @@ public class Dipendente {
 	static public double calcolaPaga(Dipendente d) {
 		return d.getStipendio();
 	}
+
 	static public double calcolaPaga(Dipendente c, int h) {
-		return c.getStipendio()+(h*c.getStraordinari());
-		
+		return c.getStipendio() + (h * c.getStraordinari());
+
 	}
 
 	private double aggiornaStipendio() {
@@ -101,6 +107,5 @@ public class Dipendente {
 		}
 
 	}
-	
 
 }
