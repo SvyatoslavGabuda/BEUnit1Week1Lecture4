@@ -73,6 +73,14 @@ public class Dipendente {
 		return this.importoOrarioStraordinario;
 	}
 
+	static public double calcolaPaga(Dipendente d) {
+		return d.getStipendio();
+	}
+	static public double calcolaPaga(Dipendente c, int h) {
+		return c.getStipendio()+(h*c.getStraordinari());
+		
+	}
+
 	private double aggiornaStipendio() {
 		switch (this.livello) {
 		case OPERAIO:
